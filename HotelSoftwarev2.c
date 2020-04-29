@@ -48,15 +48,21 @@ struct customer {
   char name [20];  //(set by checkIn)
   //char city [20];
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
   char nationality [20];  //(set by checkIn)
   int id;  //the position of its struct in the array CUST (set by checkIn)
   int members;  //(set by checkIn)
   int roomId = 0;  //(set by checkIn)
+<<<<<<< Updated upstream
 =======
   char nationality [20];
   int id;  //one more than the position of its struct in the array CUST
   int members;
   int roomId = 0;
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 };
 
@@ -75,9 +81,13 @@ struct room {
 struct customer CUST [20];
 struct room hotel [5];
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 int newCustomer = 0;
 =======
 int newCustomer = 1;
+>>>>>>> Stashed changes
+=======
+int newCustomer = 0;
 >>>>>>> Stashed changes
 int i;
 
@@ -140,9 +150,13 @@ void getAvailablity()
   for(i=0;i<5;i++)
   {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     if(hotel[i].id == 0)
 =======
     if(hotel[i].id == 1)
+>>>>>>> Stashed changes
+=======
+    if(hotel[i].id == 0)
 >>>>>>> Stashed changes
     {
       strcpy(hotel[i].type, "Sp Dlx");
@@ -156,9 +170,13 @@ void getAvailablity()
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     else if(hotel[i].id == 1)
 =======
     else if(hotel[i].id == 2)
+>>>>>>> Stashed changes
+=======
+    else if(hotel[i].id == 1)
 >>>>>>> Stashed changes
     {
       strcpy(hotel[i].type, "Dlx");
@@ -172,9 +190,13 @@ void getAvailablity()
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     else if(hotel[i].id == 2)
 =======
     else if(hotel[i].id == 3)
+>>>>>>> Stashed changes
+=======
+    else if(hotel[i].id == 2)
 >>>>>>> Stashed changes
     {
       strcpy(hotel[i].type, "Gen");
@@ -188,9 +210,13 @@ void getAvailablity()
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     else if(hotel[i].id == 3)
 =======
     else if(hotel[i].id == 4)
+>>>>>>> Stashed changes
+=======
+    else if(hotel[i].id == 3)
 >>>>>>> Stashed changes
     {
       strcpy(hotel[i].type, "Couple");
@@ -204,9 +230,13 @@ void getAvailablity()
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     else if(hotel[i].id == 4)
 =======
     else if(hotel[i].id == 5)
+>>>>>>> Stashed changes
+=======
+    else if(hotel[i].id == 4)
 >>>>>>> Stashed changes
     {
       strcpy(hotel[i].type, "C Dlx");
@@ -235,9 +265,13 @@ void printAvailablity()
   for(i=0;i<5;i++)
   {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     printf("\n%d\t", (hotel[i].id+1));
 =======
     printf("\n%d\t",hotel[i].id);
+>>>>>>> Stashed changes
+=======
+    printf("\n%d\t", (hotel[i].id+1));
 >>>>>>> Stashed changes
     printf("%s\t", hotel[i].type);  //cputs(r_type[i]);
     printf("%d\t", hotel[i].rate);
@@ -258,9 +292,13 @@ void printAvailablity()
       printf("NA\t");
     else
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       printf("%s\t", CUST[hotel[i].custId].name);
 =======
       printf("%s\t", CUST[hotel[i].custId-1].name);
+>>>>>>> Stashed changes
+=======
+      printf("%s\t", CUST[hotel[i].custId].name);
 >>>>>>> Stashed changes
 
     //printf("%s", r_cust[i]);   //cputs(r_cust[i]);
@@ -393,17 +431,25 @@ void printRoomFeature()
 void checkIn()
 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   int room, tempId;
 =======
   int room;
+>>>>>>> Stashed changes
+=======
+  int room, tempId;
 >>>>>>> Stashed changes
 
   //clrscr();
   //screenheader();
   getAvailablity();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   printAvailablity();
 =======
+>>>>>>> Stashed changes
+=======
+  printAvailablity();
 >>>>>>> Stashed changes
 
   printf("\n Enter the room number in which you want to stay:");
@@ -413,6 +459,9 @@ void checkIn()
   {
     fflush(stdin);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
     CUST[newCustomer].id = newCustomer;
     tempId = newCustomer;
@@ -435,6 +484,7 @@ void checkIn()
       if((CUST[tempId].members < 1)||(CUST[tempId].members>5))
       {
         printf("\n %d members cannot be allocated this room.Allowed members are between 1-5.", CUST[tempId].members);
+<<<<<<< Updated upstream
 =======
     printf("\n Enter Name of cust living :");
     gets(r_cust[room-1]);
@@ -451,21 +501,29 @@ void checkIn()
       {
         printf("\n %d members cannot be allocated this room.Allowed members are between 1-5.",c_mem[room-1]);
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         //getch();
         checkIn();
       }
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
     else if ((room == 4) || (room == 5))
     {
       if((CUST[tempId].members < 1) || (CUST[tempId].members > 2))
       {
         printf("\n %d members cannot be allocated this room.Allowed members are between 1-2.", CUST[tempId].members);
+<<<<<<< Updated upstream
 =======
     else if((room==4)||(room==5)){
       if((c_mem[room-1]<1)||(c_mem[room-1]>2))
       {
         printf("\n %d members cannot be allocated this room.Allowed members are between 1-2.",c_mem[room-1]);
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         //getch();
         checkIn();
