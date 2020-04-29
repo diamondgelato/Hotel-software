@@ -1,4 +1,7 @@
 /**
+NOTE: DO NOT MAKE CHANGES IN THIS FILE! THIS IS THE OLDER FILE AND WILL SOON BE DELETED SO ANY CHANGES MADE HERE WILL BE 
+REDUNDANT
+
 Changes I have made from the original website code (make sure this documentation
 doesnt get into submitted code nai to lavde lagenge)
 
