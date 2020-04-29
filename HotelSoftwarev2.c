@@ -33,7 +33,7 @@ int g_tot=0;
 int  r_charge[5];
 char r_type[5][7];  //type of room
 char r_cust[5][20]={"N.A","N.A","N.A","N.A","N.A"};  //name of customer
-char c_city[5][20];  //city customer is from
+//char c_city[5][20];  //city customer is from
 char temp[30];
 int  c_mem[5];  //number of members in room
 char c_nat[5][20];  //customer nationality
@@ -460,7 +460,7 @@ void printCustInfo()
    //screenheader();
    printf("\nEnter the room number :");
    scanf("%d",&room);
-   j=strcmp(r_cust[room-1],"N.A");
+   j=strcmp(CUST[i],"N.A");
    if(j==0)
      {
        printf("\n Data not available ");
@@ -468,16 +468,17 @@ void printCustInfo()
      }
    else
      {
-       printf("\n Room No        :%d",r_no[room-1]);
-       printf("\n Customer Name  :%s", r_cust[room-1]);
+       printf("\n Room No        :%d", hotel[i].id);
+       printf("\n Customer Name  :%s", CUST[i].name);
+       printf("\n Customer Id    :%d", CUST[i].id);
        //cputs(r_cust[room-1]);
-       printf("\n Period         :%d",r_per[room-1]);
-       printf("\n City           :%s", c_city[room-1]);
+       printf("\n Period         :%d", hotel[i].duration);
+       //printf("\n City           :%s", c_city[room-1]);
        //cputs(c_city[room-1]);
-       printf("\n Nationality    :%s", c_nat[room-1]);
+       printf("\n Nationality    :%s", CUST[i].nationality);
        //cputs(c_nat[room-1]);
-       printf("\n No of member   :%d",c_mem[room-1]);
-       printf("\n Arrival Date   :%d/%d/%d",day[room-1],month[room-1],year[room-1]);
+       printf("\n No of members   :%d", CUST[i].members);
+       //printf("\n Arrival Date   :%d/%d/%d",day[room-1],month[room-1],year[room-1]);
        //getch();
      }
  }
