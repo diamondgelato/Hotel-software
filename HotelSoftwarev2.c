@@ -485,48 +485,68 @@ void printCustInfo()
 
 void restaurant()
  {
-   int count=0,z=0,fc[113],answ;
-   char ans;
-   int price[113]={245,245,245,245,240,240,240,240,235,235,250,235,235,220,
-   215,230,215,240,250,250,250,250,250,250,250,255,245,245,245,245,250,240,
-   240,360,290,360,290,370,295,360,290,360,290,250,360,290,360,290,250,370,
-   290,360,290,250,250,280,245,290,235,265,240,290,300,256,240,265,270,255,
-   255,240,240,235,220,25,30,25,30,35,35,25,30,35,25,35,25,25,30,100,105,105,
-   100,105,100,105,125,105,105,100,105,110,115,100,100,100,105,105,105,105,
-   125,105,120,120,100};
-   char food[113][30]={"SHAHI PANEER","KADAI PANEER","CHEESE KORMA",
+   int count=0,z=0,fc[113],answ,p,i;
+   char ans,rname[20];
+   int price[103]={245,245,245,245,240,240,240,240,235,250,235,235,220,
+   215,230,
+   250,250,250,250,250,250,250,255,245,245,245,245,240,
+                   
+   240,360,290,360,295,360,290,360,290,250,360,250,370,
+   290,360,290,250,250,280,245,290,235,265,
+   
+   240,290,300,256,240,265,270,255,
+   255,240,240,235,220,
+                   
+   25,30,25,30,35,35,25,30,35,25,35,25,25,30,100,105,105,
+   100,105,
+                   
+   100,105,125,105,105,100,105,110,115,
+                   
+   100,100,100,105,105,105,105,
+   125,105,120,120};
+   char food[103]={"SHAHI PANEER","KADAI PANEER","CHEESE KORMA",
    "MALAI KOFTA","MATAR PANEER","PALAK PANEER","MIX VEG.","ALOO GOBI",
-   "ALOO JEERA","CHANA MASALA","MATAR MUSHROOM","RAJMA MAKHANI","DAL MAKHANI",
-   "MIXED RAITA","BUNDI RAITA","PINEAPPLE RAITA","SALAD(GREEN)","DUM ALOO",
-   "MUSHROOM PANEER","MUTTON MASALA","MUTTON MUGHLAI","MUTTON KORMA",
+   "CHANA MASALA","MATAR MUSHROOM","RAJMA MAKHANI","DAL MAKHANI",
+   "MIXED RAITA","BUNDI RAITA","PINEAPPLE RAITA","MUSHROOM PANEER",
+                   
+   "MUTTON MASALA","MUTTON MUGHLAI","MUTTON KORMA",
    "MUTTON DO PYAZA","MUTTON SAGH","MUTTON DAHI","MUTTON ROGAN JOSH",
    "MUTTON CURRY","KADAI MUTTON","KEEMA LEVER","KEEMA MATAR","KEEMA EGG",
-   "BRAIN CURRY","EGG CURRY","BUTTER CHICKEN","BUTTER CHICKEN(1/2)",
-   "KADAI CHICKEN","KADAI CHICKEN(1/2)","BUTTER CHICKEN(BL)",
-   "BUTTER CHICKEN(BL)(1/2)","CHICKEN MUGHLAI","CHICKEN MUGHLAI(1/2)",
+   "EGG CURRY",
+                   
+   "BUTTER CHICKEN","BUTTER CHICKEN(1/2)",
+   "KADAI CHICKEN","KADAI CHICKEN(1/2)",
+   "CHICKEN MUGHLAI","CHICKEN MUGHLAI(1/2)",
    "CHICKEN MASALA","CHICKEN MASALA(1/2)","CHICKEN MASALA(1/4)",
-   "CHICKEN SAGH","CHICKEN SAGH(1/2)","CHICKEN DAHI","CHICKEN DAHI(1/2)",
-   "CHICKEN DAHI(1/4)","CHICKEN KORMA","CHICKEN KORMA(1/2)",
+   "CHICKEN SAGH","CHICKEN SAGH(1/2)",
+   "CHICKEN KORMA","CHICKEN KORMA(1/2)",
    "CHICKEN DO PYAZA","CHICKEN DO PYAZA(1/2)","FISH CURRY","CHICKEN CURRY",
    "CHICKEN CURRY(1/2)","CHICKEN CURRY(1/4)","CHILLI CHICKEN","TANDOORI ALOO",
-   "CHICKEN TIKKA","SEEKH KABAB","FISH TIKKA","CHICKEN TANDOORI",
+   "CHICKEN TIKKA","SEEKH KABAB",
+                   
+   "FISH TIKKA","CHICKEN TANDOORI",
    "CHICKEN TANDOORI(1/2)","PANEER TIKKA","CHICKEN SEEKH KABAB",
    "CHICKEN HARA KABAB","CHICKEN BIRYANI","MUTTON BIRYANI","PANEER PULAO",
-   "VEG.PULAO","JEERA RICE","STEAMED RICE","RUMALI ROTI","ROTI","NAN",
+   "VEG.PULAO","JEERA RICE","STEAMED RICE",
+                   
+   "RUMALI ROTI","ROTI","NAN",
    "ALOO NAN","PANEER NAN","KEEMA NAN","PARANTHA","ALOO PARANTHA",
    "PANEER PARANTHA","PUDINA PARANTHA","BUTTER NAN","LACHCHA PARANTHA",
    "MISSI ROTI","KHASTA ROTI","VEG.BURGER","PANEER BURGER","CHEESE SANDWICH",
-   "VEG.PATTI","CHICKEN PATTI","TEA","COFFEE","COLD COFFEE","PINEAPPLE",
+   "VEG.PATTI","CHICKEN PATTI",
+                 
+   "TEA","COFFEE","COLD COFFEE","PINEAPPLE",
    "STRAWBERRY","CHOCOLATE","BLACK FOREST","DOUBLE STORIED","TRIPLE STORIED",
+   
    "SOFT CONE","VANILLA","STRAWBERRY","CHOCOLATE","CHOCO CHIPS","MANGO",
    "TUTTI FRUITY","LICHI","PISTA BADAM","CHOCOLATE PISTA BADAM","CHOCO DIP",
-   "CHOCOLATE LICHI"};
+   };
    //clrscr();
    //screenheader();
    printf("\n                        *********");
    printf("\n                        MENU CARD");
    printf("\n                        *********");
-   printf("\n\n                        VEGETARIAN");
+   printf("\n\n                        VEGETARIAN\n");
    for(i=0;i<113;count++,i++)
      {
        //gotoxy(17,count+20);
@@ -535,42 +555,42 @@ void restaurant()
        printf("%s\t\t", food[i]);  //cputs(food[i]);
        //gotoxy(55,count+20);
        printf("%d",price[i]);
-       if(count==17)
+       /*if(count==17)
   {
     count=0;
     printf("\n                              PRESS ANY KEY TO CONTINUE");
     //getch();
     //clrscr();
     //screenheader();
-  }
-       if(i==18)
+  }*/
+       if(i==15)
   {
-    printf("\n\n       MUTTON\n");
+    printf("\n\n                     MUTTON\n");
     count +=3;
   }
-       if(i==32)
+       if(i==28)
   {
-    printf("\n\n       CHICKEN\n");
+    printf("\n\n                     CHICKEN\n");
     count +=3;
   }
-       if(i==57)
+       if(i==48)
   {
-    printf("\n\n       BAR-BE-QUE\n");
+    printf("\n\n                     BAR-BE-QUE\n");
     count +=3;
   }
-       if(i==72)
+       if(i==64)
   {
-    printf("\n\n       ROTI-NAN-PARANTHA\n");
+    printf("\n\n                   ROTI-NAN-PARANTHA\n");
+    count +=3;
+  }
+       if(i==82)
+  {
+    printf("\n\n                   BEVERAGES\n");
     count +=3;
   }
        if(i==91)
   {
-    printf("\n\n       BEVERAGES\n");
-    count +=3;
-  }
-       if(i==100)
-  {
-    printf("\n\n       ICE-CREAMS\n");
+    printf("\n\n                   ICE-CREAMS\n");
     count +=3;
   }
      }
@@ -599,7 +619,16 @@ void restaurant()
         printf("\nEnter your name:");
         fflush(stdin);
         gets(name);
-        if(strcmpi(name,r_cust[room-1])!=0)
+       for(i=0;i<5;i++)
+       {
+         if(CUST[i].roomId==room)
+         {
+           strcpy(rname,CUSR[i].name);
+           p=i;
+           break;
+         }
+       }
+        if(strcmpi(name,rnamr)!=0)
    {
      printf("\nWrong name...:");
      //getch();
@@ -612,9 +641,9 @@ void restaurant()
    {
      printf("%s", food[fc[i]-1]);    //cputs(food[fc[i]-1]);
      printf("\t\t\t%d\n",price[fc[i]-1]);
-     tot[room-1] +=price[fc[i]-1];
+     hotel[p].foodCharge +=price[fc[i]-1];
    }
-        printf("TOTAL\t\t\t\t%d",tot[room-1]);
+        printf("TOTAL\t\t\t\t%d",hotel[p].foodChrge);
         break;
 
        default:printf("\nWrong choice entered!!!");
