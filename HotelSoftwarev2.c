@@ -60,7 +60,7 @@ struct room {
   int id;  //is the position of its struct in the array (set by main)
   int rate;  //rate of the room (set by getAvailablity)
   int stayCharge;  //(recorded and reset by checkOut)
-  int foodCharge;  //(recorded by restaurant check with Prachi, reset by checkOut)
+  int foodCharge = 0;  //(recorded by restaurant check with Prachi, reset by checkOut)
   int grandTotal;  //(set in checkOut)
   int duration;  //duration of stay in days (set by checkIn, reset by checkOut)
   int custId = 0;  //(set by checkIn, reset by checkOut)
@@ -441,40 +441,50 @@ void checkIn()
  */
 void checkOut()
 {
-  int room;
+  int room, ch, a;
 
   //clrscr();
   //screenheader();
   printf("\nEnter the room number:");
   scanf("%d",&room);
+  a = room - 1;
 
-  if(strcmp(r_cust[room-1],"N.A")==0)  //r_cust[room-1]=="N.A"
+  if(hotel[a].custId == 0)  //r_cust[room-1]=="N.A"
   {
     printf("\nThe room is empty........");
     //getch();
   }
   else
   {
-    printf("\nEnter the name of the person staying in the room:");
+    /*printf("\nEnter the name of the person staying in the room:");
     fflush(stdin);
     gets(name);
     if(strcmpi(name,r_cust[room-1])==0)
+    {*/
+
+    printf("Are you sure you want to deallocate this room? (1 for yes/0 for no) : ");
+    scanf("%d\n", &ch);
+
+    if (ch == 1)
     {
       printf("\nRoom number %d is deallocated......",room);
-      strcpy(r_cust[room-1],"N.A");
+      hotel[a].custId = 0;
       //getch();
     }
-     else
+
+    //}
+    else
     {
-      printf("\nInvalid name........");
+      printf("\nOk cool!");
       //getch();
-      checkOut();
+      //checkOut();
     }
   }
 
-  g_tot=(r_per[room-1]*r_charge[room-1])-advance[room-1]+tot[room-1];
-  printf("\n\nYour total bill is %d",g_tot);
-  printf("\n\n\nThanks for staying in this hotel.........");
+  hotel[a].stayCharge = hotel[a].rate * hotel[a];
+  hotel[a].grandTotal = hotel[a].stayCharge + hotel[a].foodCharge;
+  printf("\n\nYour total bill is %d", hotel[a].grandTotal);
+  printf("\n\n\nThanks for staying in this hotel!");
 }
 
 
