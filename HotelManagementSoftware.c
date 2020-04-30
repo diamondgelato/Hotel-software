@@ -1,75 +1,34 @@
-/**
-Changes I have made from the original website code (make sure this documentation
-doesnt get into submitted code nai to lavde lagenge)
-- Commented all instances of 'getch()', 'clrscr()' (future me nikaalne ka plan
-  hai)
-- Replaces all instances of 'cputs()' with simple 'printf()'
-- Changed most the function names
-  - 'intro()' -> 'startPage()'
-  - 'cancel()' -> 'cancellation()'
-  - 'getavail()' -> 'getAvailablity()'
-  - 'putavail()' -> 'printAvailablity()'
-  - 'features()' -> 'printRoomFeature()'
-  - 'allocate()' -> 'checkIn()'
-  - 'deallocate()' -> 'checkOut()'
-  - 'putcust()' -> 'printCustInfo()'
-  - I think I'll spare 'restaurant()'
-- Changed the hotel address (Punjab ka address is not feasible guys)
-*/
-
 #include <stdio.h>
-//#include<conio.h>
 #include <string.h>
-//#include<process.h>
 
-//Global variables............
-//int advance[5]={750,500,400,500,750};
-int  r_no[5]={1,2,3,4,5};
-int room;
-int tot[5]={0,0,0,0,0};
-int g_tot=0;
-int  r_charge[5];
-char r_type[5][7];  //type of room
-char r_cust[5][20]={"N.A","N.A","N.A","N.A","N.A"};  //name of customer
-//char c_city[5][20];  //city customer is from
-char temp[30];
-int  c_mem[5];  //number of members in room
-char c_nat[5][20];  //customer nationality
-char r_avail[5];  //
-int  r_per[5];  //duration of stay
-//int  no[5];
-//int year[5];
-//int month[5];
-//int day[5];
-
-//ignore the bad bois above this, these are the new GLOBAL VARIABLES
+//GLOBAL VARIABLES
 struct customer {
-  char name [20];  //(set by checkIn)
-  //char city [20];
-  char nationality [20];  //(set by checkIn)
-  int id;  //the position of its struct in the array CUST (set by checkIn)
-  int members;  //(set by checkIn)
-  int roomId;  //(set by checkIn)
+  char name [20];
+  char nationality [20];
+  int id;
+  int members;
+  int roomId;
 };
 
 struct room {
   char type [7];
-  int available;  //1 - available and 0 - not available (set by checkIn, reset by checkOut)
-  int id;  //is the position of its struct in the array (set by main)
-  int rate;  //rate of the room (set by getAvailablity)
-  int stayCharge;  //(recorded and reset by checkOut)
-  int foodCharge;  //(recorded by restaurant check with Prachi, reset by checkOut)
-  int grandTotal;  //(set in checkOut)
-  int duration;  //duration of stay in days (set by checkIn, reset by checkOut)
-  int custId;  //(set by checkIn, reset by checkOut)
+  int available;
+  int id;
+  int rate;
+  int stayCharge;
+  int foodCharge;
+  int grandTotal;
+  int duration;
+  int custId;
 };
 
 struct customer CUST [20];
 struct room hotel [5];
 int newCustomer = 1;
 int i;
+int room;
 
-//Function prototypes.........
+//FUNCTION PROTOTYPES
 void getAvailablity();
 void printAvailablity();
 void printRoomFeature();
@@ -77,34 +36,16 @@ void checkIn();
 void printCustInfo();
 void restaurant();
 void checkOut();
-//void cancellation();
 void startPage();
-//void screenheader();
 
-//Function definitions..........
-/*void screenheader()
- {
-   printf("\n                       :::::::::::::::::::::::::::::::::::::");
-   printf("\n                       ::                                 ::");
-   printf("\n                       ::     @@@@@@@@@@@@@@@@@@@@@@@     ::");
-   printf("\n                       ::     @                     @     ::");
-   printf("\n                       ::     @      WELCOME TO     @     ::");
-   printf("\n                       ::     @                     @     ::");
-   printf("\n                       ::     @    Lovely  Coding   @     ::");
-   printf("\n                       ::     @                     @     ::");
-   printf("\n                       ::     @@@@@@@@@@@@@@@@@@@@@@@     ::");
-   printf("\n                       ::                                 ::");
-   printf("\n                       :::::::::::::::::::::::::::::::::::::\n\n");
- }*/
 
 /*
     This function is there to display the features of the hotal and serves as an introduction to the program
  */
-void startPage()    //prints the first page, which has info about hotel
+void startPage()
  {
    printf("\n\tNear BSF Chowk, Netaji Subhash Chandra Bose Road, Lonavala City,\n\t\t\t\t Maharashtra 436772, INDIA");
    printf("\n\n                              Ph. No.:022-28537229");
-   //printf("\n\n\n                             WELCOMES YOU..............");
    printf("\n\n\n\nHotel Rosemund Inn is one of the newest Hotel in Lonavala. The Hotel is \nequipped with with all the general amenities and facilities that go \nalong with memorable stay. Set amidst beautifully landscaped gardens, \nit proves to be a ideal dream destination for perceptive traveller.");
    printf("\n\n\nThe Hotel have well furnished rooms along with rooms providing pleasent \nviews of the city. The hotel satisfies the needs of business as well \nas the leisure traveller. All the rooms at the thotel are furnished \nbeautifully. All the rooms are fitted with amenities.");
    printf("\n\n                             AMENITIES .......\n");
@@ -195,15 +136,13 @@ void getAvailablity()
  */
 void printAvailablity()
 {
-  //clrscr();
-  //screenheader();
   printf("\n                          ROOM AVAILABILITY");
   printf("\n                         -------------------");
   printf("\n Room No \tType \tCharge \tAvailability \tCust_Name \tPeriod \n");
   for(i=0;i<5;i++)
   {
     printf("\n%d\t\t", (hotel[i].id+1));
-    printf("%s\t", hotel[i].type);  //cputs(r_type[i]);
+    printf("%s\t", hotel[i].type);  
     printf("%d\t", hotel[i].rate);
 
     if (hotel[i].available == 0)
@@ -211,27 +150,12 @@ void printAvailablity()
     else if (hotel[i].available == 1)
       printf("     Y\t\t");
 
-    /*if(i==0)
-      printf("    %d\t%c\t     ",r_charge[i],r_avail[i]);
-    if((i==1) || (i==2))
-      printf("       %d\t   %c\t        ",r_charge[i],r_avail[i]);
-    if(i==3 || i==4)
-      printf("     %d\t %c\t      ",r_charge[i],r_avail[i]);*/
-
     if (hotel[i].custId == 0)
       printf("NA\t\t");
     else
       printf("%s\t", CUST[hotel[i].custId-1].name);
 
-    //printf("%s", r_cust[i]);   //cputs(r_cust[i]);
-
     printf("%d\t", hotel[i].duration);
-    /*if((i==1) || (i==2))
-      printf("\t %d",r_per[i]);
-    else if((i==3) || (i==4))
-      printf("\t       %d",r_per[i]);
-    else
-      printf("\t      %d",r_per[i]);*/
   }
 }
 
@@ -239,8 +163,7 @@ void printAvailablity()
 void printRoomFeature()
  {
    int typ;
-   //clrscr();
-   //screenheader();
+
    printf("\nChoose the room type:\n1. Sp. Delux\n2. Delux");
    printf("\n3. General\n4. Couple\n5. C. Delux\n");
    scanf("%d",&typ);
@@ -251,8 +174,7 @@ void printRoomFeature()
      }
    switch(typ)
      {
-       case 1://clrscr();
-       //screenheader();
+       case 1:
        printf("\n Room number            >>>1");
        printf("\n Advance                >>>750\n\n");
        printf("\n                      FEATURES OF THIS ROOM                       ");
@@ -271,8 +193,8 @@ void printRoomFeature()
        printf("\n------------------------------------------------------------------");
        printf("\n NOTE :- Extra bed will cost Rs.50 per bed ");
        break;
-       case 2://clrscr();
-       //screenheader();
+
+       case 2:
        printf("\n Room number            >>>2\n\n");
        printf("\n Advance                >>>500\n\n");
        printf("\n                      FEATURES OF THIS ROOM                       ");
@@ -290,8 +212,8 @@ void printRoomFeature()
        printf("\n-------------------------------------------------------------------");
        printf("\n NOTE :- Extra bed will cost Rs.50 per bed ");
        break;
-       case 3://clrscr();
-       //screenheader();
+
+       case 3:
        printf("\n Room number            >>>3\n\n");
        printf("\n Advance                >>>400\n\n");
        printf("\n                      FEATURES OF THIS ROOM                       ");
@@ -307,8 +229,8 @@ void printRoomFeature()
        printf("\n-------------------------------------------------------------------");
        printf("\n NOTE :- Extra bed will cost Rs.50 per bed ");
        break;
-       case 4://clrscr();
-       //screenheader();
+
+       case 4:
        printf("\n Room number            >>>4\n\n");
        printf("\n Advance                >>>500\n\n");
        printf("\n                      FEATURES OF THIS ROOM                       ");
@@ -325,8 +247,8 @@ void printRoomFeature()
        printf("\n-------------------------------------------------------------------");
        printf("\n NOTE :- Extra bed will cost Rs.50 per bed ");
        break;
-       case 5://clrscr();
-       //screenheader();
+
+       case 5:
        printf("\n Room number            >>>5\n\n");
        printf("\n Advance                >>>750\n\n");
        printf("\n                      FEATURES OF THIS ROOM                       ");
@@ -354,8 +276,6 @@ void checkIn()
 {
   int room, tempId;
 
-  //clrscr();
-  //screenheader();
   getAvailablity();
   printAvailablity();
 
@@ -372,9 +292,7 @@ void checkIn()
     CUST[newCustomer-1].roomId = hotel[room-1].id;
 
     printf("\n Enter Name of customer :");
-    gets (CUST[tempId].name);      //gets(r_cust[room-1]);
-    //printf("\n Enter city name :");
-    //gets (CUST[tempId].city);      //gets(c_city[room-1]);
+    gets (CUST[tempId].name);
     printf("\n Enter nationality :");
     gets(CUST[tempId].nationality);
     printf("\n Enter duration of stay(in days) :");
@@ -387,7 +305,6 @@ void checkIn()
       if((CUST[tempId].members < 1)||(CUST[tempId].members>5))
       {
         printf("\n %d members cannot be allocated this room.Allowed members are between 1-5.", CUST[tempId].members);
-        //getch();
         checkIn();
       }
     }
@@ -400,35 +317,15 @@ void checkIn()
         checkIn();
       }
     }
-       /*printf("\n Enter the date of arrival :");
-       printf("\n------------------------------");
-       printf("\n Year : ");
-       scanf("%d",&year[room-1]);
-       printf("\n Month :");
-       scanf("%d",&month[room-1]);
-       printf("\n Day :");
-       scanf("%d",&day[room-1]);
-       if((year[room-1]>9999)||(month[room-1]>12)||(month[room-1]<1)||(day[room-1]<1)||(((month[room-1]==1)||(month[room-1]==3)||(month[room-1]==5)||(month[room-1]==7)||(month[room-1]==8)||(month[room-1]==10)||(month[room-1]==12))&&(day[room-1]>31))||(((month[room-1]==4)||(month[room-1]==6)||(month[room-1]==9)||(month[room-1]==11))&&(day[room-1]>30))||((month[room-1]==2)&&((year[room-1]%400==0)||((year[room-1]%4==0)&&(year[room-1]%100!=0)))&&(day[room-1]>29))||((month[room-1]==2)&&(year[room-1]%4!=0)&&(day[room-1]>28)))
-  {
-    //delay(200);
-    printf("\n\n!!!!!INVALID DATE........");
-    //getch();
-    checkIn();
-  }*/
-       //else
-    //{
+
     printf("\n Room is allocated to %s for %d days.", CUST[hotel[i].custId].name, hotel[room-1].duration);
-    //cputs(r_cust[room-1]);
     hotel[room-1].available = 0;
     newCustomer++;
-    //getch();
-    //}
   }
   else
   {
     printf("\n ERROR : Room cannot be allocated ...");
     printf("\n Room is not available...");
-    //getch();
   }
 }
 
@@ -441,25 +338,16 @@ void checkOut()
 {
   int room, ch, a;
 
-  //clrscr();
-  //screenheader();
   printf("\nEnter the room number:");
   scanf("%d",&room);
   a = room - 1;
 
-  if(hotel[a].custId == 0)  //r_cust[room-1]=="N.A"
+  if(hotel[a].custId == 0)
   {
     printf("\nThe room is empty........");
-    //getch();
   }
   else
   {
-    /*printf("\nEnter the name of the person staying in the room:");
-    fflush(stdin);
-    gets(name);
-    if(strcmpi(name,r_cust[room-1])==0)
-    {*/
-
     printf("Are you sure you want to deallocate this room? (1 for yes/0 for no) : ");
     scanf("%d", &ch);
 
@@ -467,15 +355,11 @@ void checkOut()
     {
       printf("\nRoom number %d is deallocated......",room);
       hotel[a].custId = 0;
-      //getch();
     }
 
-    //}
     else
     {
       printf("\nOk cool!");
-      //getch();
-      //checkOut();
     }
   }
 
@@ -485,71 +369,25 @@ void checkOut()
   printf("\n\n\nThanks for staying in this hotel!");
 }
 
-
-/*void cancellation()
- {
-   //clrscr();
-   //screenheader();
-   printf("\nEnter the room number:");
-   scanf("%d",&room);
-   if(strcmp(r_cust[room-1],"N.A")==0)  //r_cust[room-1]=="N.A"
-     {
-       printf("\nThe room is empty........");
-       //getch();
-     }
-   else
-     {
-       printf("\nEnter the name of the person staying in the room:");
-       fflush(stdin);
-       gets(name);
-       if(strcmpi(name,r_cust[room-1])==0)
-  {
-    printf("\nReservation for room number %d is cancelled......",room);
-    strcpy(r_cust[room-1],"N.A");
-    //getch();
-  }
-       else
-  {
-    printf("\nInvalid name........");
-    //getch();
-    cancellation();
-  }
-     }
-   g_tot=advance[room-1];
-   printf("\n\nYour total bill is %d",g_tot);
- }*/
-
-
 void printCustInfo()
  {
    int i;
-   //clrscr();
-   //screenheader();
    printf("\nEnter the room number :");
    scanf("%d",&room);
    i = room - 1;
 
-   //j=strcmp(CUST[i].name,"N.A");
-
    if(hotel[i].custId==0)
      {
        printf("\n Data not available ");
-       //getch();
      }
    else
      {
        printf("\n Room No        :%d", (hotel[i].id+1));
        printf("\n Customer Name  :%s", CUST[hotel[i].custId-1].name);
        printf("\n Customer Id    :%d", hotel[i].custId);
-       //cputs(r_cust[room-1]);
        printf("\n Period         :%d", hotel[i].duration);
-       //printf("\n City           :%s", c_city[room-1]);
-       //cputs(c_city[room-1]);
        printf("\n Nationality    :%s", CUST[hotel[i].custId-1].nationality);
-       //cputs(c_nat[room-1]);
        printf("\n No of members   :%d", CUST[hotel[i].custId].members);
-       //printf("\n Arrival Date   :%d/%d/%d",day[room-1],month[room-1],year[room-1]);
-       //getch();
      }
  }
 
@@ -613,28 +451,17 @@ void restaurant()
    "SOFT CONE","VANILLA","STRAWBERRY","CHOCOLATE","CHOCO CHIPS","MANGO",
    "TUTTI FRUITY","LICHI","PISTA BADAM","CHOCOLATE PISTA BADAM","CHOCO DIP",
    };
-   //clrscr();
-   //screenheader();
+
    printf("\n                        *********");
    printf("\n                        MENU CARD");
    printf("\n                        *********");
    printf("\n\n                        VEGETARIAN\n");
    for(i=0;i<103;count++,i++)
      {
-       //gotoxy(17,count+20);
        printf("\t%d\t\t",i+1);
-       //gotoxy(30,count+20);
-       printf("%s\t\t", food[i]);  //cputs(food[i]);
-       //gotoxy(55,count+20);
+       printf("%s\t\t", food[i]);
        printf("%d\n",price[i]);
-       /*if(count==17)
-  {
-    count=0;
-    printf("\n                              PRESS ANY KEY TO CONTINUE");
-    //getch();
-    //clrscr();
-    //screenheader();
-  }*/
+
        if(i==15)
   {
     printf("\n\n                     MUTTON\n");
@@ -666,9 +493,6 @@ void restaurant()
     count +=3;
   }
      }
-   //getch();
-   //clrscr();
-   //screenheader();
    printf("\n\nPRESS 0 TO GO BACK TO MENU CARD\nPRESS 1 TO CONTINUE ");
    scanf("%d",&answ);
    switch(answ)
@@ -676,7 +500,7 @@ void restaurant()
        case 0:restaurant();
        break;
 
-       case 1 ://clrscr();
+       case 1 :
         do
    {
      printf("ENTER THE FOOD CODE YOU WANT TO HAVE :: ");
@@ -693,7 +517,7 @@ void restaurant()
         gets(name);
        for(i=0;i<5;i++)
        {
-         if(CUST[i].roomId==(room-1))  //add 1 to roomId
+         if(CUST[i].roomId==(room-1))
          {
            strcpy(rname,CUST[i].name);
            p=i;
@@ -703,15 +527,11 @@ void restaurant()
         if(strcmpi(name,rname)!=0)
    {
      printf("\nWrong name...:");
-     //getch();
      restaurant();
    }
-        //getch();
-        //clrscr();
-        //screenheader();
         for(i=0;i<z;i++)
    {
-     printf("%s", food[fc[i]-1]);    //cputs(food[fc[i]-1]);
+     printf("%s", food[fc[i]-1]);
      printf("\t\t\t%d\n",price[fc[i]-1]);
      hotel[p].foodCharge +=price[fc[i]-1];
    }
@@ -719,7 +539,6 @@ void restaurant()
         break;
 
        default:printf("\nWrong choice entered!!!");
-        //getch();
         restaurant();
      }
  }
@@ -729,8 +548,6 @@ int main()
  {
    char ans;
    int ch, j;
-   //clrscr();
-   //screenheader();
    for (j = 0; j < 5; j++)
    {
      hotel[j].id = j;
@@ -741,15 +558,12 @@ int main()
    startPage();
    do
      {
-       //clrscr();
-       //screenheader();
        printf("\n\n\n        Choose a category:\n");
        printf("    1. Get availability\n");
        printf("    2. Features of room\n");
        printf("    3. Room allocation\n");
        printf("    4. Show customer details\n");
        printf("    5. Restaurant\n");
-       //printf("    6. Cancellation\n");
        printf("    6. Room Deallocation\n");
        printf("    7. Exit\n");
        printf("\n\nEnter your choice: ");
@@ -767,17 +581,13 @@ int main()
      break;
      case 5:restaurant();
      break;
-     //case 6:cancellation();
-     //break;
      case 6:checkOut();
      break;
-     case 7:return 0;  //exit(0);
+     case 7:return 0;
      default:printf("\n\n\nWrong choice!!!!\n\nPlease choose 1-7");
-      //getch();
    }
  printf("\n\nDo you want to continue:");
  fflush(stdin);
  scanf("%c",&ans);
      }while(ans=='y'||ans=='Y');
  }
-
