@@ -1,4 +1,4 @@
-**
+/**
 Changes I have made from the original website code (make sure this documentation
 doesnt get into submitted code nai to lavde lagenge)
 - Commented all instances of 'getch()', 'clrscr()' (future me nikaalne ka plan
