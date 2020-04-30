@@ -58,7 +58,6 @@ void startPage()
    printf("\t\t\t7. 24 hours room service.\n");
    printf("\t\t\t8. Laundary service.\n");
    printf("\nPress any character to continue:");
-   //getch();
  }
 
 /*
@@ -142,7 +141,7 @@ void printAvailablity()
   for(i=0;i<5;i++)
   {
     printf("\n%d\t\t", (hotel[i].id+1));
-    printf("%s\t", hotel[i].type);  
+    printf("%s\t", hotel[i].type);
     printf("%d\t", hotel[i].rate);
 
     if (hotel[i].available == 0)
