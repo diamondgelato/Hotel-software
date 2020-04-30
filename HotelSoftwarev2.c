@@ -51,7 +51,7 @@ struct customer {
   char nationality [20];  //(set by checkIn)
   int id;  //the position of its struct in the array CUST (set by checkIn)
   int members;  //(set by checkIn)
-  int roomId = 0;  //(set by checkIn)
+  int roomId;  //(set by checkIn)
 };
 
 struct room {
@@ -60,15 +60,15 @@ struct room {
   int id;  //is the position of its struct in the array (set by main)
   int rate;  //rate of the room (set by getAvailablity)
   int stayCharge;  //(recorded and reset by checkOut)
-  int foodCharge = 0;  //(recorded by restaurant check with Prachi, reset by checkOut)
+  int foodCharge;  //(recorded by restaurant check with Prachi, reset by checkOut)
   int grandTotal;  //(set in checkOut)
   int duration;  //duration of stay in days (set by checkIn, reset by checkOut)
-  int custId = 0;  //(set by checkIn, reset by checkOut)
+  int custId;  //(set by checkIn, reset by checkOut)
 };
 
 struct customer CUST [20];
 struct room hotel [5];
-int newCustomer = 0;
+int newCustomer = 1;
 int i;
 
 //Function prototypes.........
@@ -81,7 +81,7 @@ void restaurant();
 void checkOut();
 //void cancellation();
 void startPage();
-void screenheader();
+//void screenheader();
 
 //Function definitions..........
 /*void screenheader()
@@ -368,10 +368,10 @@ void checkIn()
   {
     fflush(stdin);
 
-    CUST[newCustomer].id = newCustomer;
-    tempId = newCustomer;
+    CUST[newCustomer-1].id = newCustomer;
+    tempId = newCustomer - 1;
     hotel[room-1].custId = newCustomer;
-    CUST[newCustomer].roomId = hotel[room-1].id;
+    CUST[newCustomer-1].roomId = hotel[room-1].id;
 
     printf("\n Enter Name of cust living :");
     gets (CUST[tempId].name);      //gets(r_cust[room-1]);
@@ -481,7 +481,7 @@ void checkOut()
     }
   }
 
-  hotel[a].stayCharge = hotel[a].rate * hotel[a];
+  hotel[a].stayCharge = hotel[a].rate * hotel[a].duration;
   hotel[a].grandTotal = hotel[a].stayCharge + hotel[a].foodCharge;
   printf("\n\nYour total bill is %d", hotel[a].grandTotal);
   printf("\n\n\nThanks for staying in this hotel!");
@@ -524,29 +524,32 @@ void checkOut()
 
 void printCustInfo()
  {
-   int j;
+   int i;
    //clrscr();
    //screenheader();
    printf("\nEnter the room number :");
    scanf("%d",&room);
-   j=strcmp(CUST[i],"N.A");
-   if(j==0)
+   i = room - 1;
+
+   //j=strcmp(CUST[i].name,"N.A");
+
+   if(hotel[i].custId==0)
      {
        printf("\n Data not available ");
        //getch();
      }
    else
      {
-       printf("\n Room No        :%d", hotel[i].id);
-       printf("\n Customer Name  :%s", CUST[i].name);
-       printf("\n Customer Id    :%d", CUST[i].id);
+       printf("\n Room No        :%d", (hotel[i].id+1));
+       printf("\n Customer Name  :%s", CUST[hotel[i].custId].name);
+       printf("\n Customer Id    :%d", hotel[i].custId);
        //cputs(r_cust[room-1]);
        printf("\n Period         :%d", hotel[i].duration);
        //printf("\n City           :%s", c_city[room-1]);
        //cputs(c_city[room-1]);
-       printf("\n Nationality    :%s", CUST[i].nationality);
+       printf("\n Nationality    :%s", CUST[hotel[i].custId].nationality);
        //cputs(c_nat[room-1]);
-       printf("\n No of members   :%d", CUST[i].members);
+       printf("\n No of members   :%d", CUST[hotel[i].custId].members);
        //printf("\n Arrival Date   :%d/%d/%d",day[room-1],month[room-1],year[room-1]);
        //getch();
      }
@@ -556,34 +559,34 @@ void printCustInfo()
 void restaurant()
  {
    int count=0,z=0,fc[113],answ,p,i;
-   char ans,rname[20];
+   char ans,rname[20], name[20];
    int price[103]={245,245,245,245,240,240,240,240,235,250,235,235,220,
    215,230,
    250,250,250,250,250,250,250,255,245,245,245,245,240,
-                   
+
    240,360,290,360,295,360,290,360,290,250,360,250,370,
    290,360,290,250,250,280,245,290,235,265,
-   
+
    240,290,300,256,240,265,270,255,
    255,240,240,235,220,
-                   
+
    25,30,25,30,35,35,25,30,35,25,35,25,25,30,100,105,105,
    100,105,
-                   
+
    100,105,125,105,105,100,105,110,115,
-                   
+
    100,100,100,105,105,105,105,
    125,105,120,120};
    char food[103][30]={"SHAHI PANEER","KADAI PANEER","CHEESE KORMA",
    "MALAI KOFTA","MATAR PANEER","PALAK PANEER","MIX VEG.","ALOO GOBI",
    "CHANA MASALA","MATAR MUSHROOM","RAJMA MAKHANI","DAL MAKHANI",
    "MIXED RAITA","BUNDI RAITA","PINEAPPLE RAITA","MUSHROOM PANEER",
-                   
+
    "MUTTON MASALA","MUTTON MUGHLAI","MUTTON KORMA",
    "MUTTON DO PYAZA","MUTTON SAGH","MUTTON DAHI","MUTTON ROGAN JOSH",
    "MUTTON CURRY","KADAI MUTTON","KEEMA LEVER","KEEMA MATAR","KEEMA EGG",
    "EGG CURRY",
-                   
+
    "BUTTER CHICKEN","BUTTER CHICKEN(1/2)",
    "KADAI CHICKEN","KADAI CHICKEN(1/2)",
    "CHICKEN MUGHLAI","CHICKEN MUGHLAI(1/2)",
@@ -592,23 +595,23 @@ void restaurant()
    "CHICKEN KORMA","CHICKEN KORMA(1/2)",
    "CHICKEN DO PYAZA","CHICKEN DO PYAZA(1/2)","FISH CURRY","CHICKEN CURRY",
    "CHICKEN CURRY(1/2)","CHICKEN CURRY(1/4)","CHILLI CHICKEN","TANDOORI ALOO",
-   
-                       
+
+
    "CHICKEN TIKKA","SEEKH KABAB",
    "FISH TIKKA","CHICKEN TANDOORI",
    "CHICKEN TANDOORI(1/2)","PANEER TIKKA","CHICKEN SEEKH KABAB",
    "CHICKEN HARA KABAB","CHICKEN BIRYANI","MUTTON BIRYANI","PANEER PULAO",
    "VEG.PULAO","JEERA RICE","STEAMED RICE",
-                   
+
    "RUMALI ROTI","ROTI","NAN",
    "ALOO NAN","PANEER NAN","KEEMA NAN","PARANTHA","ALOO PARANTHA",
    "PANEER PARANTHA","PUDINA PARANTHA","BUTTER NAN","LACHCHA PARANTHA",
    "MISSI ROTI","KHASTA ROTI","VEG.BURGER","PANEER BURGER","CHEESE SANDWICH",
    "VEG.PATTI","CHICKEN PATTI",
-                 
+
    "TEA","COFFEE","COLD COFFEE","PINEAPPLE",
    "STRAWBERRY","CHOCOLATE","BLACK FOREST","DOUBLE STORIED","TRIPLE STORIED",
-   
+
    "SOFT CONE","VANILLA","STRAWBERRY","CHOCOLATE","CHOCO CHIPS","MANGO",
    "TUTTI FRUITY","LICHI","PISTA BADAM","CHOCOLATE PISTA BADAM","CHOCO DIP",
    };
@@ -692,14 +695,14 @@ void restaurant()
         gets(name);
        for(i=0;i<5;i++)
        {
-         if(CUST[i].roomId==room)
+         if(CUST[i].roomId==room)  //add 1 to roomId
          {
-           strcpy(rname,CUSR[i].name);
+           strcpy(rname,CUST[i].name);
            p=i;
            break;
          }
        }
-        if(strcmpi(name,rnamr)!=0)
+        if(strcmpi(name,rname)!=0)
    {
      printf("\nWrong name...:");
      //getch();
@@ -714,7 +717,7 @@ void restaurant()
      printf("\t\t\t%d\n",price[fc[i]-1]);
      hotel[p].foodCharge +=price[fc[i]-1];
    }
-        printf("TOTAL\t\t\t\t%d",hotel[p].foodChrge);
+        printf("TOTAL\t\t\t\t%d",hotel[p].foodCharge);
         break;
 
        default:printf("\nWrong choice entered!!!");
@@ -733,6 +736,8 @@ int main()
    for (j = 0; j < 5; j++)
    {
      hotel[j].id = j;
+     hotel[i].foodCharge = 0;
+     hotel[i].custId = 0;
    }
 
    startPage();
